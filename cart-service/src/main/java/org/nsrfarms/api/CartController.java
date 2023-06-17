@@ -7,18 +7,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/cart")
+@RestController
+@RequestMapping("/cart")
 public class CartController {
 
 	@Autowired
 	private CatalogFeignClient catalogFeignClient;
 
-	@GetMapping("/feign/{name}")
+	@GetMapping("/{name}")
 	@ResponseBody
-	String sayHi(@PathVariable(required = false) String name) {
+	public String sayHi(@PathVariable String name) {
 		return catalogFeignClient.getCatalogInfo(name);
 	}
 
