@@ -3,6 +3,7 @@ package org.nsrfarms.api;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,4 +17,9 @@ public class CatalogController {
 		return "Hey !! I am Catalog Service and Provide you Catalog Information from " + id;
 	}
 	
+	@GetMapping("/wish")
+	@ResponseBody
+	public String wish(@RequestParam String name) {
+		return "Hi "+name;
+	}
 }
