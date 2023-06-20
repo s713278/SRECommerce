@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
-@FeignClient(url="${catalog.service.url}" ,name="catalog-feign-client" ,path="/catalog")
+//@FeignClient(url="${catalog.service.url}" ,name="catalog-feign-client" ,path="/catalog")
+@FeignClient(value="CATALOG-SERVICE" ,path="/catalog")
 public interface CatalogFeignClient {
 
 	
