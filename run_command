@@ -1,0 +1,3 @@
+ java -jar ./eureka-server/target/eureka-server-1.0.jar
+ java -jar ./catalog-service/target/catalog-service-1.0.jar
+ java -jar ./cart-service/target/cart-service-1.0.jar
