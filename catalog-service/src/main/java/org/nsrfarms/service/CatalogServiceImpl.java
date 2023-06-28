@@ -3,8 +3,19 @@
  */
 package org.nsrfarms.service;
 
+import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
+
+import org.nsrfarms.entity.Catalog;
+import org.nsrfarms.entity.Category;
+import org.nsrfarms.entity.Product;
+import org.nsrfarms.entity.Sku;
 import org.nsrfarms.mapper.CatalogMapper;
 import org.nsrfarms.repository.CatalogRepository;
+import org.nsrfarms.repository.CategoryRepository;
+import org.nsrfarms.repository.ProductRepository;
+import org.nsrfarms.repository.SkuRepository;
 import org.nsrfarms.vo.CatalogVO;
 import org.nsrfarms.vo.CategoryVO;
 import org.nsrfarms.vo.ProductVO;
@@ -24,30 +35,48 @@ public class CatalogServiceImpl implements CatalogService {
 	 */
 	@Autowired
 	private CatalogRepository catalogRepository;
+
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	@Autowired
-	CatalogMapper catalogMapper;
+	private ProductRepository productRepository;
 	
+	@Autowired
+	private SkuRepository skuRepository;
+
+	@Autowired
+	private CatalogMapper catalogMapper;
+
 	public CatalogServiceImpl() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public CatalogVO getCatalog(Long id) {
-		return catalogMapper.catalogTocatalogVO(catalogRepository.findById(id));
+		CatalogVO catalogVO = new CatalogVO();
+		Optional<Catalog> optional = catalogRepository.findById(id);
+		if (optional.isPresent()) {
+			catalogVO = catalogMapper.toVO(optional.get());
+		}
+		return catalogVO;
 	}
 
 	public CategoryVO getCategory(Long id) {
-		return null;
+		CategoryVO categoryVO = new CategoryVO();
+		Optional<Category> optional = categoryRepository.findById(id);
+		if (optional.isPresent()) {
+			categoryVO = catalogMapper.toVO(optional.get());
+		}
+		return categoryVO;
 	}
 
 	public ProductVO getProduct(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Product product = productRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Product not found"));
+		return catalogMapper.toVO(product);
 	}
 
 	public SkuVO getSku(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Sku sku = skuRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Sku not found"));
+		return catalogMapper.toVO(sku);
 	}
 
 }

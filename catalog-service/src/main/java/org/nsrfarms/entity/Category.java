@@ -3,10 +3,12 @@ package org.nsrfarms.entity;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import lombok.Data;
@@ -23,7 +25,10 @@ public class Category {
 
 	private String description;
 
-	@OneToMany
-	@JoinColumn(name = "category_id")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
 	private List<Product> products;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "catalog_id")
+	private Catalog catalog;
 }
