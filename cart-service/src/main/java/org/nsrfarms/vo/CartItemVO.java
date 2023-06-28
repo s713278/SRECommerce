@@ -7,12 +7,14 @@ import org.nsrfarms.entity.CartItem;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Data
 @ToString
-@NoArgsConstructor
+@Getter
+@Setter
 public class CartItemVO {
 	public CartItemVO(CartItem cartItem) {
 		this.id=cartItem.getId();
