@@ -11,6 +11,8 @@ import org.nsrfarms.entity.Catalog;
 import org.nsrfarms.entity.Category;
 import org.nsrfarms.entity.Product;
 import org.nsrfarms.entity.Sku;
+import org.nsrfarms.exception.InvalidPriceException;
+import org.nsrfarms.exception.ResourceNotFoundException;
 import org.nsrfarms.mapper.CatalogMapper;
 import org.nsrfarms.repository.CatalogRepository;
 import org.nsrfarms.repository.CategoryRepository;
@@ -75,8 +77,22 @@ public class CatalogServiceImpl implements CatalogService {
 	}
 
 	public SkuVO getSku(Long id) {
-		Sku sku = skuRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Sku not found"));
+		Sku sku = skuRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Sku not found"));
 		return catalogMapper.toVO(sku);
 	}
-
+	
+	/**
+	 * 
+	 * @param skuVO
+	 * @return
+	 */
+	public SkuVO createCatalog(SkuVO skuVO ) {
+		if(skuVO.getListPrice() <=0 || skuVO.getListPrice() >10000) {
+			throw new InvalidPriceException("Item price should be greate than 0 and lesser than 10000");
+		}
+		Sku sku = catalogMapper.toEntity(skuVO);
+		sku = skuRepository.save(sku);
+		return catalogMapper.toVO(sku);
+		
+	}
 }

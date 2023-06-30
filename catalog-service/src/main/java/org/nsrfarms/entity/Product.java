@@ -26,7 +26,7 @@ public class Product {
 	
 	private String description;
 
-	@OneToMany(fetch=FetchType.LAZY ,mappedBy="product")
+	@OneToMany(fetch=FetchType.EAGER ,mappedBy="product")
 	private List<Sku> skus;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
