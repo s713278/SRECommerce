@@ -52,7 +52,7 @@ public class CatalogMapperImpl implements CatalogMapper {
         productVO.setId( product.getId() );
         productVO.setName( product.getName() );
         productVO.setDescription( product.getDescription() );
-
+        productVO.setSkus(product.getSkus());
         return productVO;
     }
 
