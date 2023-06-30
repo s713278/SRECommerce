@@ -1,3 +1,4 @@
+Its about organic online store development
 # nsr-farms
 Eureka Server Url: http://localhost:8761/
 
