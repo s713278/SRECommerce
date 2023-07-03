@@ -11,8 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.ToString;
+import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 @Data
 @ToString
@@ -27,7 +30,8 @@ public class Category {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
 	private List<Product> products;
-
+	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "catalog_id")
 	private Catalog catalog;
