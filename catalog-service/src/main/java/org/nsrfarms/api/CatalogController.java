@@ -23,99 +23,132 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
-import feign.codec.ErrorDecoder;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@Tag(name = "Catalog Cotroller")
 
 @RestController
 @RequestMapping("/catalog")
 public class CatalogController {
-	private Logger LOGGER= LoggerFactory.getLogger(this.getClass());
-	
+	private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
 	@Autowired
 	private CatalogService catalogService;
-	
+
 	/**
-	 * <p>URL:  http://localhost:8082/catalog/123</p>
-	 * <p>API Gateway URL : http://localhost:9090/catalog-service/catalog/11 </p>
+	 * <p>
+	 * URL: http://localhost:8082/catalog/123
+	 * </p>
+	 * <p>
+	 * API Gateway URL : http://localhost:9090/catalog-service/catalog/11
+	 * </p>
+	 * 
 	 * @param id
 	 * @return
 	 */
+	@Operation(
+			summary = "Get Catalog REST API"
+			)
+	@ApiResponse(
+			responseCode = "200",
+			description = "Catalog if fetched from database"
+			)
 	@GetMapping("/{id}")
-	@ResponseBody 
+	@ResponseBody
 	public ResponseEntity<CatalogVO> getCatalog(@PathVariable Long id) {
-		return new ResponseEntity<CatalogVO>( catalogService.getCatalog(id),HttpStatus.OK);
+		return new ResponseEntity<CatalogVO>(catalogService.getCatalog(id), HttpStatus.OK);
 	}
-	
+
 	/**
-	 * <p>URL:  http://localhost:8082/catalog/category/123</p>
-	 * <p>API Gateway URL : http://localhost:9090/catalog-service/category/category/11 </p>
+	 * <p>
+	 * URL: http://localhost:8082/catalog/category/123
+	 * </p>
+	 * <p>
+	 * API Gateway URL : http://localhost:9090/catalog-service/category/category/11
+	 * </p>
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@GetMapping("category/{id}")
-	@ResponseBody 
+	@ResponseBody
 	public CategoryVO getCategory(@PathVariable Long id) {
 		return catalogService.getCategory(id);
 	}
-	
+
 	/**
-	 * <p>URL:  http://localhost:8082/catalog/product/123</p>
-	 * <p>API Gateway URL : http://localhost:9090/catalog-service/category/product/11 </p>
+	 * <p>
+	 * URL: http://localhost:8082/catalog/product/123
+	 * </p>
+	 * <p>
+	 * API Gateway URL : http://localhost:9090/catalog-service/category/product/11
+	 * </p>
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@GetMapping("product/{id}")
-	@ResponseBody 
+	@ResponseBody
 	public ProductVO getProduct(@PathVariable Long id) {
 		return catalogService.getProduct(id);
 	}
-	
+
 	/**
-	 * <p>URL:  http://localhost:8082/catalog/sku/123</p>
-	 * <p>API Gateway URL : http://localhost:9090/catalog-service/category/sku/11 </p>
+	 * <p>
+	 * URL: http://localhost:8082/catalog/sku/123
+	 * </p>
+	 * <p>
+	 * API Gateway URL : http://localhost:9090/catalog-service/category/sku/11
+	 * </p>
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@GetMapping("sku/{id}")
-	@ResponseBody 
+	@ResponseBody
 	public SkuVO getSku(@PathVariable Long id) {
 		return catalogService.getSku(id);
 	}
 
 	@GetMapping("getById/{id}")
-	@ResponseBody 
+	@ResponseBody
 	public String getCatalogInfo(@PathVariable String id) {
 		return "Hey !! I am Catalog Service and Provide you Catalog Information from " + id;
 	}
-	
+
 	@GetMapping("/wish")
 	@ResponseBody
 	public String wish(@RequestParam String name) {
-		return "Hi "+name;
+		return "Hi " + name;
 	}
-	
+
 	/**
-	 * <p>URL:  http://localhost:8082/catalog/add/123/123</p>
-	 * <p>API Gateway URL : http://localhost:9090/catalog-service/catalog/add/11/11 </p>
+	 * <p>
+	 * URL: http://localhost:8082/catalog/add/123/123
+	 * </p>
+	 * <p>
+	 * API Gateway URL : http://localhost:9090/catalog-service/catalog/add/11/11
+	 * </p>
+	 * 
 	 * @param a
 	 * @param b
 	 * @return
 	 */
 	@GetMapping("/add/{a}/{b}")
 	@ResponseBody
-	public Integer sum(@PathVariable Integer a,@PathVariable Integer b) {
-		LOGGER.info(" Number#1: {a}, Number#2: {b}",a,b);
-		return  a+b;
+	public Integer sum(@PathVariable Integer a, @PathVariable Integer b) {
+		LOGGER.info(" Number#1: {a}, Number#2: {b}", a, b);
+		return a + b;
 	}
-	
+
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<ErrorDetails> handleResourceNotFoundException(WebRequest request,ResourceNotFoundException exception){
-		ErrorDetails details = new ErrorDetails(
-				LocalDateTime.now(),
-				exception.getMessage(),
-				request.getDescription(false),
-				"ITEM_NOT_FOUND"
-				);
-		ResponseEntity<ErrorDetails> re= new ResponseEntity<ErrorDetails>(details, HttpStatus.NOT_FOUND);
+	public ResponseEntity<ErrorDetails> handleResourceNotFoundException(WebRequest request,
+			ResourceNotFoundException exception) {
+		ErrorDetails details = new ErrorDetails(LocalDateTime.now(), exception.getMessage(),
+				request.getDescription(false), "ITEM_NOT_FOUND");
+		ResponseEntity<ErrorDetails> re = new ResponseEntity<ErrorDetails>(details, HttpStatus.NOT_FOUND);
 		return re;
 	}
 }
