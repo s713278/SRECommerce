@@ -1,9 +1,3 @@
-Its about organic online store development
-# nsr-farms
-Eureka Server Url: http://localhost:8761/
 
-Catalog Test URL : http://localhost:8082/catalog/wish?name=Swamy
-
-Open Feign Example for calling a service from another service: http://localhost:8081/cart/wish?name=KSwamy%20Kunta
-
-Key: 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
+	
+![image](https://github.com/s713278/nsr-farms/assets/14287419/2a7848b0-b496-4b91-aeb3-0923e959facf)
