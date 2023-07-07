@@ -1,1 +1,1 @@
-java -jar -Dserver.port=8083 ./catalog-service/target/catalog-service-1.0.jar
+java -jar -Dserver.port=8083 -Dspring-boot.run.profiles=h2 ./catalog-service/target/catalog-service-1.0.jar
