@@ -47,7 +47,7 @@ class CatalogComponent extends Component {
                  <div >
                     <p> {this.state.catalog.name} </p>
                     <p> {this.state.category.name} </p>
-                    <p> {this.state.product.name} </p>
+                    <p> {this.state.product.skus} </p>
                     <p> {this.state.sku.name} </p>
                  </div>
             </div>
