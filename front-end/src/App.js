@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import './App.css';
 import CatalogComponent from './component/CatalogComponent';
 import ProductTable from './component/ProductTable';
+import NewSkuForm from './component/NewSkuForm';
 
 
 function App() {
@@ -18,13 +19,13 @@ function App() {
             ]
             );
 
-  const addSku = () =>{
-    alert("Button clicked..."+skus.length);
+  const addSku = (skuName,desc, skuPrice) =>{
     if(skus.length >0){
       const newSku = {
         id:skus.length+1,
-        name:"Phone",
-        description:"Beautiful Pen",price:"1245.00"
+        name: skuName,
+        description: desc,
+        price: skuPrice
       };
      // skus.push(newSku);
      setSku(skus => [...skus,newSku]);
@@ -33,6 +34,7 @@ function App() {
     }
   }
 
+  const [showAddSku,setShowAddSku] = useState(false);
 
   return (
     <diV className="mt-5 container">
@@ -42,9 +44,11 @@ function App() {
         </div>
         <div className="card-body">
          <ProductTable skus={skus}/>
-         <button className='btn btn-primary' onClick={addSku}>Add Sku</button>
+         <button className='btn btn-primary' onClick={() => setShowAddSku(!showAddSku)}>{showAddSku ? 'Close Sku' : 'Add Sku'}</button>
+         {showAddSku && <NewSkuForm addSku={addSku}/>}
         </div>
       </div>
+      
     </diV>
   );
 }

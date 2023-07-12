@@ -26,6 +26,7 @@ function ProductTable( props) {
               </div>
               {props.skus.map(sku =>(
                 <RowItem
+                  key = {sku.id} 
                  id={sku.id} 
                  name = {sku.name}
                  price={sku.price}
