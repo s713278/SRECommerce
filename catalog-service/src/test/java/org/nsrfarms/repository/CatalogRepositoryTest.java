@@ -1,7 +1,7 @@
 package org.nsrfarms.repository;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Optional;
@@ -25,13 +25,25 @@ public class CatalogRepositoryTest {
 	@Test
 	void failGetCatalogItemById() {
 		Optional<Catalog> catalog = catalogRepository.findById(111l);
-		assertFalse(!catalog.isPresent());
+		assertTrue(catalog.isEmpty());
 	}
 
 	@Test
 	void passGetCatalogItemById() {
 		Optional<Catalog> catalog = catalogRepository.findById(1l);
 		assertTrue(catalog.isPresent());
+	}
+	
+	@Test
+	void passUpdateCatalogItemById() {
+		Optional<Catalog> catalog = catalogRepository.findById(1l);
+		assertTrue(catalog.isPresent());
+		Catalog  entity = catalog.get();
+		entity.setDescription("TEST DESC");
+		entity = catalogRepository.save(entity);
+		System.out.println("#########################################################    Aftet Updating "+entity.getDescription());
+		Optional<Catalog> modifiedCatalog = catalogRepository.findById(1l);
+		assertEquals("TEST DESC", modifiedCatalog.get().getDescription());
 	}
 
 	// @Test

@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.ToString;
-import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 @Data
 @ToString
