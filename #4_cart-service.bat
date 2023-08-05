@@ -1,1 +1,1 @@
-java -jar ./cart-service/target/cart-service-1.0.jar
+java -jar -Dserver.port=8084 -Dspring.profiles.active=h2 ./cart-service/target/cart-service-1.0.jar
