@@ -32,13 +32,11 @@ public class CatalogMapperImpl implements CatalogMapper {
         if ( category == null ) {
             return null;
         }
-
         CategoryVO categoryVO = new CategoryVO();
-
         categoryVO.setId( category.getId() );
         categoryVO.setName( category.getName() );
         categoryVO.setDescription( category.getDescription() );
-
+        categoryVO.setProducts(category.getProducts());
         return categoryVO;
     }
 
