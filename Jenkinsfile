@@ -8,9 +8,9 @@ pipeline {
             }
         }
         
-         stage('Hello') {
+         stage('Zipkin') {
             steps {
-                cmd 'mvn test'
+                cmd 'java -jar ./zipkin_server/zipkin-server-2.24.2-exec.jar'
             }
         }
     }
