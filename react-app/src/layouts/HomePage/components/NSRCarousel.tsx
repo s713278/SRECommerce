@@ -1,6 +1,9 @@
+import React from 'react';
+import {Link} from 'react-router-dom';
 import { NSRReturnProduct } from "./NSRReturnProduct";
 import { useEffect,useState } from "react";
 import NSRProduct from "../../../models/NSRProduct";
+import { NSRLoading } from "../../Utils/NSRLoading";
 
 
 export const NSRCarousel = () => {
@@ -45,9 +48,7 @@ export const NSRCarousel = () => {
 
     if(loading){
         return(
-            <div>
-                Loading..
-            </div>
+            <NSRLoading/>
         );
     }
 
@@ -78,14 +79,14 @@ export const NSRCarousel = () => {
                     </div>
                     <div className='carousel-item'>
                         <div className='row d-flex justify-content-center align-items-center'>
-                            {products.slice(0, 3).map(product => (
+                            {products.slice(3, 6).map(product => (
                                 <NSRReturnProduct product={product} key ={product.id} />
                             ))}
                         </div>
                     </div>
                     <div className='carousel-item'>
                         <div className='row d-flex justify-content-center align-items-center'>
-                        {   products.slice(0, 3).map(product => (
+                        {   products.slice(6, 9).map(product => (
                                 <NSRReturnProduct product={product} key ={product.id} />
                             ))}
                         </div>
@@ -120,7 +121,7 @@ export const NSRCarousel = () => {
                 </div>
             </div>
             <div className='homepage-carousel-title mt-3'>
-                <a className='btn btn-outline-secondary btn-lg' href="#">View More</a>
+                <Link className='btn btn-outline-secondary btn-lg' to="/search">View More</Link>
             </div>
         </div>
     );

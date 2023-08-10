@@ -2,6 +2,7 @@ package org.nsrfarms.api;
 
 import java.time.LocalDateTime;
 
+import org.nsrfarms.entity.Product;
 import org.nsrfarms.exception.ErrorDetails;
 import org.nsrfarms.exception.ResourceNotFoundException;
 import org.nsrfarms.service.CatalogService;
@@ -12,6 +13,10 @@ import org.nsrfarms.vo.SkuVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -142,6 +147,17 @@ public class CatalogController {
 		LOGGER.info(" Number#1: {a}, Number#2: {b}", a, b);
 		return a + b;
 	}
+	
+	
+	@GetMapping("/products")
+	@ResponseBody
+	public Page<Product> getProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return catalogService.getAllProducts(pageable);
+    }
 
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<ErrorDetails> handleResourceNotFoundException(WebRequest request,

@@ -1,26 +1,29 @@
-import { useEffect, useState } from 'react';
-import BookModel from '../../models/BookModel';
-import { Pagination } from '../Utils/Pagination';
-import { SpinnerLoading } from '../Utils/SpinnerLoading';
-import { SearchBook } from './components/SearchBook';
+import React from 'react';
+import { useEffect, useState } from "react";
+import NSRProduct from "../../models/NSRProduct";
+import { NSRLoading } from "../Utils/NSRLoading";
+import { NSRSearchPRoduct } from "./components/NSRSearchProduct";
+import { Pagination } from "../Utils/Pagination";
 
-export const SearchBooksPage = () => {
+export const NSRSearchProductPage = () => {
 
-    const [books, setBooks] = useState<BookModel[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+    //State variable with initial state value
+    const [products, setProducts] = useState<NSRProduct[]>([]);
+    const [loading, setLoading] = useState(false);
     const [httpError, setHttpError] = useState(null);
-    
+
     const [currentPage, setCurrentPage] = useState(1);
     const [booksPerPage] = useState(5);
     const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [search, setSearch] = useState('');
     const [searchUrl, setSearchUrl] = useState('');
-    const [categorySelection, setCategorySelection] = useState('Book category');
+    const [categorySelection, setCategorySelection] = useState('Product Category');
 
     useEffect(() => {
-        const fetchBooks = async () => {
-            const baseUrl: string = "http://localhost:8080/api/books";
+
+        const fetchProducts = async () => {
+            const baseUrl: string = "http://localhost:9090/catalog-service/catalog/products";
 
             let url: string = '';
 
@@ -31,47 +34,39 @@ export const SearchBooksPage = () => {
             }
 
             const response = await fetch(url);
-
-            if (!response.ok) {
-                throw new Error('Something went wrong!');
-            }
-
             const responseJson = await response.json();
+            
+            const responseData = responseJson.content;
+            console.log("responseJson.totalElements :" + responseJson.totalElements);
 
-            const responseData = responseJson._embedded.books;
+            setTotalAmountOfBooks(responseJson.totalElements);
+            setTotalPages(responseJson.totalPages);
 
-            setTotalAmountOfBooks(responseJson.page.totalElements);
-            setTotalPages(responseJson.page.totalPages);
-
-            const loadedBooks: BookModel[] = [];
+            const loadedProducts: NSRProduct[] = [];
 
             for (const key in responseData) {
-                loadedBooks.push({
+                console.log("responseData[key] \t"+responseData[key].name);
+                loadedProducts.push({
                     id: responseData[key].id,
-                    title: responseData[key].title,
-                    author: responseData[key].author,
-                    description: responseData[key].description,
-                    copies: responseData[key].copies,
-                    copiesAvailable: responseData[key].copiesAvailable,
-                    category: responseData[key].category,
-                    img: responseData[key].img,
-                });
+                    name: responseData[key].name,
+                    desc: responseData[key].description
+                }
+                );
             }
-
-            setBooks(loadedBooks);
-            setIsLoading(false);
+            console.log("loadedProducts \t:" + loadedProducts);
+            setProducts(loadedProducts);
+            setLoading(false);
         };
-        fetchBooks().catch((error: any) => {
-            setIsLoading(false);
+        fetchProducts().catch((error: any) => {
+            setLoading(false);
             setHttpError(error.message);
         })
-        window.scrollTo(0, 0);
-    }, [currentPage, searchUrl]);
+    }, []);
 
-    if (isLoading) {
+    if (loading) {
         return (
-            <SpinnerLoading />
-        )
+            <NSRLoading />
+        );
     }
 
     if (httpError) {
@@ -95,7 +90,7 @@ export const SearchBooksPage = () => {
             value.toLowerCase() === 'fe' || 
             value.toLowerCase() === 'be' || 
             value.toLowerCase() === 'data' || 
-            value.toLowerCase() === 'devops'
+            value.toLowerCase() === 'Catalog'
         ) {
             setCategorySelection(value);
             setSearchUrl(`/search/findByCategory?category=${value}&page=0&size=${booksPerPage}`)
@@ -143,22 +138,22 @@ export const SearchBooksPage = () => {
                                     </li>
                                     <li onClick={() => categoryField('FE')}>
                                         <a className='dropdown-item' href='#'>
-                                            Front End
+                                            Sku
                                         </a>
                                     </li>
                                     <li onClick={() => categoryField('BE')}>
                                         <a className='dropdown-item' href='#'>
-                                            Back End
+                                            Product
                                         </a>
                                     </li>
                                     <li onClick={() => categoryField('Data')}>
                                         <a className='dropdown-item' href='#'>
-                                            Data
+                                            Category
                                         </a>
                                     </li>
-                                    <li onClick={() => categoryField('DevOps')}>
+                                    <li onClick={() => categoryField('Catalog')}>
                                         <a className='dropdown-item' href='#'>
-                                            DevOps
+                                            Catalog
                                         </a>
                                     </li>
                                 </ul>
@@ -173,8 +168,8 @@ export const SearchBooksPage = () => {
                             <p>
                                 {indexOfFirstBook + 1} to {lastItem} of {totalAmountOfBooks} items:
                             </p>
-                            {books.map(book => (
-                                <SearchBook book={book} key={book.id} />
+                            {products.map(product => (
+                                <NSRSearchPRoduct product={product} key={product.id} />
                             ))}
                         </>
                         :
@@ -183,7 +178,7 @@ export const SearchBooksPage = () => {
                                 Can't find what you are looking for?
                             </h3>
                             <a type='button' className='btn main-color btn-md px-4 me-md-2 fw-bold text-white'
-                                href='#'>Library Services</a>
+                                href='#'>NSR Services</a>
                         </div>
                     }
                     {totalPages > 1 &&

@@ -1,3 +1,4 @@
+import React from 'react';
 export const NSRServices = () => {
     return(
         <div className='container my-5'>

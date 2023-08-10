@@ -1,4 +1,5 @@
 
+import React from 'react';
 import { NSRCarousel } from "./components/NSRCarousel";
 import { NSRExploreTopProducts } from "./components/NSRExploreTopProducts";
 import { NSRHeros } from "./components/NSRHeros";

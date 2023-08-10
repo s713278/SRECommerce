@@ -23,6 +23,8 @@ import org.nsrfarms.vo.CategoryVO;
 import org.nsrfarms.vo.ProductVO;
 import org.nsrfarms.vo.SkuVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -93,6 +95,11 @@ public class CatalogServiceImpl implements CatalogService {
 		Sku sku = catalogMapper.toEntity(skuVO);
 		sku = skuRepository.save(sku);
 		return catalogMapper.toVO(sku);
-		
+	}
+	
+	@Override
+	public Page<Product> getAllProducts(Pageable pageable) {
+		 Page<Product> products = productRepository.findAll(pageable);
+	return products;
 	}
 }
