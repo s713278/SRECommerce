@@ -1,0 +1,28 @@
+import React from 'react';
+import {NavLink} from 'react-router-dom';
+import {useState,useEffect} from 'react'
+import NSRCategory from '../../models/NSRCategory';
+export const NSRFetchCategories = () => {
+    //State variable with initial state value
+    const [categories, setCategories] = useState<NSRCategory[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [httpError, setHttpError] = useState(null);
+
+    useEffect(()=>{
+      
+      const fetchCategories = async () => {
+        try{
+          const response = await fetch("http://localhost:9090/catalog-service/catalog/1");
+          const responseJson = await response.json();
+          const categoriesData = responseJson.categories;
+          setCategories(categoriesData);
+        }catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      fetchCategories();//Call for getting Categories dynamically
+    },
+    /*2nd argument*/
+    []
+    );
+}

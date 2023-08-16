@@ -45,11 +45,12 @@ export const NSRSearchProductPage = () => {
             const loadedProducts: NSRProduct[] = [];
 
             for (const key in responseData) {
-                console.log("responseData[key] \t"+responseData[key].name);
                 loadedProducts.push({
                     id: responseData[key].id,
                     name: responseData[key].name,
-                    desc: responseData[key].description
+                    desc: responseData[key].description,
+                    longName:responseData[key].longName,
+                    skus:responseData[key].skus
                 }
                 );
             }

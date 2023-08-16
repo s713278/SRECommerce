@@ -2,6 +2,7 @@ package org.nsrfarms.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class Category {
 
 	private String description;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category" )
 	private List<Product> products;
 	
 	@JsonIgnore

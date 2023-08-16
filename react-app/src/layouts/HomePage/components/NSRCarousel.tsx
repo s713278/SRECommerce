@@ -32,7 +32,8 @@ export const NSRCarousel = () => {
                 loadedProducts.push({
                     id:responseData[key].id,
                     name: responseData[key].name,
-                    desc: responseData[key].description
+                    desc: responseData[key].description,
+                    longName:responseData[key].longName
                 }  
             );   
             }

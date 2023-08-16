@@ -24,7 +24,7 @@ public class CatalogMapperImpl implements CatalogMapper {
         catalogVO.setId( catalog.getId() );
         catalogVO.setName( catalog.getName() );
         catalogVO.setDescription( catalog.getDescription() );
-
+        catalogVO.setCategories(catalog.getCategories());
         return catalogVO;
     }
 

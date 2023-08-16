@@ -1,5 +1,9 @@
 package org.nsrfarms.vo;
 
+import java.util.List;
+
+import org.nsrfarms.entity.Category;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.ToString;
@@ -15,5 +19,8 @@ public class CatalogVO {
 	
 	@Schema(description = "Catalog Description")
 	private String description;
+	
+	@Schema(description = "Categories")
+	private List<Category> categories;
 
 }

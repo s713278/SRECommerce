@@ -1,6 +1,45 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink,Link} from 'react-router-dom';
+import {useState,useEffect} from 'react'
+import NSRCategory from '../../models/NSRCategory';
 export const NSRNavbar = () => {
+
+  
+    //State variable with initial state value
+    const [categories, setCategories] = useState<NSRCategory[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [httpError, setHttpError] = useState(null);
+
+    useEffect(()=>{
+      
+      const fetchCategories = async () => {
+        try{
+          const response = await fetch("http://localhost:9090/catalog-service/catalog/1");
+          const responseJson = await response.json();
+          const categoriesData = responseJson.categories;
+          const loadedCats: NSRCategory [] = [];
+          console.log();
+          for (const key in categoriesData) {
+            loadedCats.push({
+                id: categoriesData[key].id,
+                name: categoriesData[key].name,
+                displayName: categoriesData[key].description
+            }
+            );
+        }
+        console.log("loadedCats \t:" + loadedCats);
+          setCategories(loadedCats);
+          setLoading(false);
+        }catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      fetchCategories();//Call for getting Categories dynamically
+    },
+    /*2nd argument*/
+    []
+    );
+
   return (
     <nav className='navbar navbar-expand-lg navbar-dark main-color py-3'>
     <div className='container-fluid'>
@@ -17,7 +56,18 @@ export const NSRNavbar = () => {
             {/*<a className='nav-link' href="/home"> Home </a>*/}
             <NavLink className="nav-link" to="/home">Home</NavLink>
           </li>
-          <li className='nav-item'>
+
+          {
+            categories.map((category) => ( 
+              <li className='nav-item' >
+                  <NavLink className='nav-link' to={`/category/${category.id}`}> {category.name} </NavLink>
+              </li>
+            )
+            )
+          }
+          
+          
+          <li className='nav-item' >
            {/* <a className='nav-link' href="/search"> Search Products </a>*/}
             <NavLink className="nav-link" to="/search">Search Products</NavLink>
           </li>

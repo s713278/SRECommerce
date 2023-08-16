@@ -2,6 +2,7 @@ package org.nsrfarms.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,15 @@ public class Product {
 	
 	private String name;
 	
+	@Column(name="LONGNAME")
+	private String longName;
+	
+	@Column(name="DESCRIPTION")
 	private String description;
+	
+	@Column(name="LARGEIMAGE")
+	private String largeImage;
+	
 
 	@OneToMany(fetch=FetchType.EAGER ,mappedBy="product")
 	private List<Sku> skus;

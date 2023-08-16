@@ -11,8 +11,8 @@ export const NSRReturnProduct:React.FC<{product:NSRProduct}> =(props) => {
                     height='233'
                     alt="Product"
                 />
-                <h6 className='mt-2'><b>{props.product.desc}</b> </h6>
-                <p>{props.product.name}</p>
+                <h6 className='mt-2'><b>{props.product.name}</b> </h6>
+                <p>{props.product.longName}</p>
                 <a className='btn main-color text-white' href="#">Reserve</a>
             </div>
         </div >

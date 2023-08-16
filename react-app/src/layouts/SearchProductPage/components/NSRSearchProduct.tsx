@@ -45,13 +45,14 @@ export const NSRSearchPRoduct: React.FC<{ product: NSRProduct }> = (props) => {
                             {props.product.name}
                         </h5>
                         <h4>
-                            {props.product.name}
+                            {props.product.longName}
                         </h4>
                         <p className='card-text'>
                             {props.product.desc}
                         </p>
                     </div>
                 </div>
+                
                 <div className='col-md-4 d-flex justify-content-center align-items-center'>
                     <Link className='btn btn-md main-color text-white' to={`/checkout/${props.product.id}`}>
                         View Details
