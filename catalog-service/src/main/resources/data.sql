@@ -1,4 +1,5 @@
 INSERT INTO catalog (id, name) VALUES (1, 'NSR Organic Firm');
+INSERT INTO catalog (id, name) VALUES (2, 'John Veg Matket');
 INSERT INTO category (id, name,catalog_id) VALUES (100, 'Dailry & Eggs',1);
 INSERT INTO category (id, name,catalog_id) VALUES (101, 'Fruits & Vegtables',1);
 INSERT INTO category (id, name,catalog_id) VALUES (102, 'Honey',1);

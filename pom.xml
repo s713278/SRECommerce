@@ -8,7 +8,6 @@
 	<version>1.0</version>
 	<name>nsr-farms</name>
 	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -176,5 +175,7 @@
 		<module>catalog-service</module>
 		<module>cart-service</module>
 		<module>order-service</module>
+		<module>orderproducer</module>
+		<module>order-consumer</module>
 	</modules>
 </project>
