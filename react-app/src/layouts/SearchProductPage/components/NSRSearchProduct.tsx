@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import NSRProduct from "../../../models/NSRProduct";
 
 export const NSRSearchPRoduct: React.FC<{ product: NSRProduct }> = (props) => {
+    const {name,longName,img,desc,skus} = props.product;
     return (
         <div className='card mt-3 shadow p-3 mb-3 bg-body rounded'>
             <div className='row g-0'>
@@ -45,10 +46,10 @@ export const NSRSearchPRoduct: React.FC<{ product: NSRProduct }> = (props) => {
                             {props.product.name}
                         </h5>
                         <h4>
-                            {props.product.longName}
+                            {longName}
                         </h4>
                         <p className='card-text'>
-                            {props.product.desc}
+                            {desc} 
                         </p>
                     </div>
                 </div>

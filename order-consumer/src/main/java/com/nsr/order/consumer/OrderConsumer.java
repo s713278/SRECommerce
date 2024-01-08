@@ -14,8 +14,8 @@ public class OrderConsumer {
 		
 		Properties props = new Properties();
 		props.put("bootstrap.servers", "localhost:9092");
-		props.put("key.deserializer", "org.apache.kafka.common.serialization.StringSerializer");
-		props.put("value.deserializer", "org.apache.kafka.common.serialization.IntegerSerializer");
+		props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+		props.put("value.deserializer", "org.apache.kafka.common.serialization.IntegerDeserializer");
 		props.put("group.id", "OrderGroup");
 		
 		KafkaConsumer<String,Integer> consumer = new KafkaConsumer<String,Integer>(props);
@@ -23,7 +23,7 @@ public class OrderConsumer {
 		
 		ConsumerRecords<String, Integer>  records = consumer.poll(Duration.ofSeconds(20));
 		for(ConsumerRecord<String, Integer> record: records) {
-			System.out.println("Record \t:"+record.key()+"\t"+record.value());
+			System.out.println("Record consumed \t:"+record.key()+"\t"+record.value());
 		}
 		consumer.close();
 		

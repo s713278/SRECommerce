@@ -8,7 +8,8 @@ public class OrderCallback implements Callback {
 	public void onCompletion(RecordMetadata recordMetadata, Exception arg1) {
 		System.out.println("Partition \t"+recordMetadata.partition());
 		System.out.println("Topic \t"+recordMetadata.topic());
-		System.out.println("Message Sent Successfulyy..");
+		
+		System.out.println("Message Sent Successfulyy.."+"Exception \t:"+arg1);
 	}
 
 }

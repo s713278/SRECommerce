@@ -5,8 +5,6 @@ package org.nsrfarms.service;
 
 import java.util.Optional;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.nsrfarms.entity.Catalog;
 import org.nsrfarms.entity.Category;
 import org.nsrfarms.entity.Product;
@@ -27,6 +25,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import jakarta.persistence.EntityNotFoundException;
 
 /**
  * @author Kuntaswa
