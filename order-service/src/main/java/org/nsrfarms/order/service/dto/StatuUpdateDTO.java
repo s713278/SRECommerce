@@ -11,75 +11,71 @@ import org.nsrfarms.order.entity.enumaration.Status;
 @SuppressWarnings("common-java:DuplicatedBlocks")
 public class StatuUpdateDTO implements Serializable {
 
-    private Long id;
+	private Long id;
 
-    private Status status;
+	private Status status;
 
-    private String description;
+	private String description;
 
-    private OrderDTO order;
+	private OrderDTO order;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Status getStatus() {
-        return status;
-    }
+	public Status getStatus() {
+		return status;
+	}
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public OrderDTO getOrder() {
-        return order;
-    }
+	public OrderDTO getOrder() {
+		return order;
+	}
 
-    public void setOrder(OrderDTO order) {
-        this.order = order;
-    }
+	public void setOrder(OrderDTO order) {
+		this.order = order;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof StatuUpdateDTO)) {
-            return false;
-        }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof StatuUpdateDTO)) {
+			return false;
+		}
 
-        StatuUpdateDTO statuUpdateDTO = (StatuUpdateDTO) o;
-        if (this.id == null) {
-            return false;
-        }
-        return Objects.equals(this.id, statuUpdateDTO.id);
-    }
+		StatuUpdateDTO statuUpdateDTO = (StatuUpdateDTO) o;
+		if (this.id == null) {
+			return false;
+		}
+		return Objects.equals(this.id, statuUpdateDTO.id);
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.id);
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.id);
+	}
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "StatuUpdateDTO{" +
-            "id=" + getId() +
-            ", status='" + getStatus() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", order=" + getOrder() +
-            "}";
-    }
+	// prettier-ignore
+	@Override
+	public String toString() {
+		return "StatuUpdateDTO{" + "id=" + getId() + ", status='" + getStatus() + "'" + ", description='"
+				+ getDescription() + "'" + ", order=" + getOrder() + "}";
+	}
 }
